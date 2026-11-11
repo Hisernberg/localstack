@@ -1,7 +1,7 @@
 import csv
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from localstack import config
@@ -162,7 +162,7 @@ class MetricHandler:
         LOG.debug("Metric reports will be stored in %s", folder)
         filename = (
             folder
-            / f"metric-report-raw-data-{datetime.utcnow().strftime('%Y-%m-%d__%H_%M_%S')}-{short_uid()}.csv"
+            / f"metric-report-raw-data-{datetime.now(timezone.utc).strftime('%Y-%m-%d__%H_%M_%S')}-{short_uid()}.csv"
         )
         with open(filename, "w") as fd:
             LOG.debug("Creating new metric data file %s", filename)

@@ -6,7 +6,7 @@ import re
 import textwrap
 import threading
 from collections.abc import Iterable
-from datetime import datetime
+from datetime import datetime, timezone
 from functools import cache
 from ipaddress import IPv4Address, IPv4Interface
 from pathlib import Path
@@ -61,8 +61,8 @@ from localstack.utils.serving import Server
 from localstack.utils.strings import to_bytes, to_str
 from localstack.utils.sync import sleep_forever
 
-EPOCH = datetime(1970, 1, 1)
-SERIAL = int((datetime.utcnow() - EPOCH).total_seconds())
+EPOCH = datetime(1970, 1, 1, tzinfo=timezone.utc)
+SERIAL = int((datetime.now(timezone.utc) - EPOCH).total_seconds())
 
 DEFAULT_FALLBACK_DNS_SERVER = "8.8.8.8"
 FALLBACK_DNS_LOCK = threading.RLock()
